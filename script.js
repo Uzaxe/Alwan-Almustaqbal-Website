@@ -102,11 +102,13 @@ document.documentElement.style.scrollBehavior = 'smooth';
         } else {
             document.body.style.paddingTop = '';
         }
-    });
-
-    // Close menu when clicking outside or when resizing to desktop
-    document.addEventListener('click', (e) => {
-        if (!nav.contains(e.target) && nav.classList.contains('open')) closeNav();
+               nav.classList.remove('open');
+               toggle.setAttribute('aria-expanded', 'false');
+               // remove backdrop if present
+               const existing = document.querySelector('.nav-backdrop');
+               if (existing) existing.remove();
+               // restore scroll
+               document.body.style.overflow = '';
     });
 
     window.addEventListener('resize', () => {
@@ -114,7 +116,15 @@ document.documentElement.style.scrollBehavior = 'smooth';
         // If window resized while open, update body padding to match new nav height
         if (nav.classList.contains('open')) {
             const h = nav.getBoundingClientRect().height;
-            document.body.style.paddingTop = h + 'px';
-        }
+                  // add backdrop
+                  let backdrop = document.querySelector('.nav-backdrop');
+                  if (!backdrop) {
+                     backdrop = document.createElement('div');
+                     backdrop.className = 'nav-backdrop';
+                     document.body.appendChild(backdrop);
+                     backdrop.addEventListener('click', closeNav);
+                  }
+                  // prevent body scroll while menu open
+                  document.body.style.overflow = 'hidden';
     });
-})();
+                  closeNav();
