@@ -146,4 +146,25 @@ document.documentElement.style.scrollBehavior = 'smooth';
     window.addEventListener('resize', () => {
         if (window.innerWidth > 768 && nav.classList.contains('open')) closeMenu();
     });
+
+    // Ensure nav links work while menu is open: close overlay then navigate
+    const navLinks = Array.from(nav.querySelectorAll('a'));
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            const href = link.getAttribute('href');
+            if (!href) return;
+            // on-page anchors
+            if (href.startsWith('#')) {
+                e.preventDefault();
+                closeMenu();
+                const target = document.querySelector(href);
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+                return;
+            }
+            // normal navigation: close menu then navigate
+            e.preventDefault();
+            closeMenu();
+            setTimeout(() => { window.location.href = href; }, 60);
+        });
+    });
 })();
