@@ -190,6 +190,43 @@ footer {
 }
 
 @media (max-width: 768px) {
+    /* Mobile nav: hide desktop menu, show toggle */
     nav ul { display: none; }
     .hero h1 { font-size: 2rem; }
+
+    .nav-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        background: transparent;
+        border: 0;
+        cursor: pointer;
+        color: var(--dark);
+        font-size: 1.25rem;
+    }
+
+    /* When nav has `.open`, show a full-width stacked menu */
+    nav.open ul {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 1rem 5%;
+        gap: 1rem;
+        box-shadow: 0 8px 24px rgba(0,0,0,.12);
+    }
+
+    nav.open ul li { margin: 0; }
+    nav.open a { padding: .75rem 0; display: block; }
+
+    /* Improve touch targets and spacing */
+    .btn { padding: .9rem 1.25rem; font-size: 1rem; }
+    .card { padding: 1.25rem; }
+    .grid { gap: 1rem; }
+    .value-props, .services-preview, .partners-preview { padding: 2rem 5%; }
 }

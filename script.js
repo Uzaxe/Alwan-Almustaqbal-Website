@@ -67,3 +67,42 @@ if (industryFilterButtons.length && industryGroups.length) {
 
 // Smooth scroll for anchor links (fallback)
 document.documentElement.style.scrollBehavior = 'smooth';
+
+// Mobile navigation toggle: injects a toggle button when needed and handles open/close
+(function() {
+    const nav = document.querySelector('nav');
+    if (!nav) return;
+
+    // Create toggle if not present
+    let toggle = nav.querySelector('.nav-toggle');
+    if (!toggle) {
+        toggle = document.createElement('button');
+        toggle.className = 'nav-toggle';
+        toggle.setAttribute('aria-label', 'Toggle navigation');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.innerHTML = '&#9776;'; // hamburger
+        // insert before the nav UL or at end
+        const ul = nav.querySelector('ul');
+        if (ul) nav.insertBefore(toggle, ul);
+        else nav.appendChild(toggle);
+    }
+
+    function closeNav() {
+        nav.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+    }
+
+    toggle.addEventListener('click', () => {
+        const isOpen = nav.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    // Close menu when clicking outside or when resizing to desktop
+    document.addEventListener('click', (e) => {
+        if (!nav.contains(e.target) && nav.classList.contains('open')) closeNav();
+    });
+
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768 && nav.classList.contains('open')) closeNav();
+    });
+})();
