@@ -153,18 +153,17 @@ document.documentElement.style.scrollBehavior = 'smooth';
         link.addEventListener('click', (e) => {
             const href = link.getAttribute('href');
             if (!href) return;
-            // on-page anchors
+            // on-page anchors: intercept and smooth-scroll after closing menu
             if (href.startsWith('#')) {
                 e.preventDefault();
                 closeMenu();
                 const target = document.querySelector(href);
-                if (target) target.scrollIntoView({ behavior: 'smooth' });
+                if (target) setTimeout(() => target.scrollIntoView({ behavior: 'smooth' }), 60);
                 return;
             }
-            // normal navigation: close menu then navigate
-            e.preventDefault();
+            // For normal links, just close the menu and allow the browser to navigate normally
             closeMenu();
-            setTimeout(() => { window.location.href = href; }, 60);
+            // do not call preventDefault to avoid programmatic navigation issues on some mobile browsers
         });
     });
 })();
