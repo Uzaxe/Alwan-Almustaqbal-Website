@@ -46,6 +46,8 @@ nav {
     object-fit: contain;
 }
 
+.nav-toggle { display: none; }
+
 nav ul {
     display: flex;
     list-style: none;
@@ -181,6 +183,28 @@ header.hero {
     transform: translateY(-5px);
 }
 
+/* Partners Section */
+.partners-preview {
+    background:#fff;
+    padding:3rem 5%;
+    text-align:center;
+}
+.partner-list {
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    max-width: 1200px;
+    margin: 2rem auto 0;
+}
+.partner-item {
+    background: var(--light);
+    border: 1px solid #e5e7eb;
+    padding: 1rem 1.25rem;
+    border-radius: 8px;
+    font-weight: 600;
+    color: var(--secondary);
+}
+
 /* Footer */
 footer {
     background: var(--dark);
@@ -195,7 +219,7 @@ footer {
     .hero h1 { font-size: 2rem; }
 
     .nav-toggle {
-        display: inline-flex;
+        display: inline-flex !important;
         align-items: center;
         justify-content: center;
         width: 44px;
@@ -204,7 +228,8 @@ footer {
         border: 0;
         cursor: pointer;
         color: var(--dark);
-        font-size: 1.25rem;
+        font-size: 1.5rem;
+        z-index: 200;
     }
 
     /* When nav has `.open`, show a full-width stacked menu */
