@@ -90,6 +90,9 @@ document.documentElement.style.scrollBehavior = 'smooth';
     function closeNav() {
         nav.classList.remove('open');
         toggle.setAttribute('aria-expanded', 'false');
+        // ensure body padding matches the closed nav height
+        const h = nav.getBoundingClientRect().height;
+        document.body.style.paddingTop = h + 'px';
     }
 
     toggle.addEventListener('click', () => {
@@ -100,7 +103,9 @@ document.documentElement.style.scrollBehavior = 'smooth';
             const h = nav.getBoundingClientRect().height;
             document.body.style.paddingTop = h + 'px';
         } else {
-            document.body.style.paddingTop = '';
+            // after closing, restore body padding to default nav height
+            const h = nav.getBoundingClientRect().height;
+            document.body.style.paddingTop = h + 'px';
         }
     });
 
