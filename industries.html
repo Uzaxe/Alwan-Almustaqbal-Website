@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Industries We Serve | Alwan Almustaqbal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo" aria-label="Alwan Almustaqbal Home">
+            <img src="logo.png" alt="Alwan Almustaqbal logo">
+            <span>Alwan Almustaqbal</span>
+        </a>
+        <ul>
+            <li><a href="index.html" id="link-to-home">Home</a></li>
+            <li><a href="about.html" id="link-to-about">About</a></li>
+            <li><a href="services.html" id="link-to-services">Services</a></li>
+            <li><a href="quality.html" id="link-to-quality">Quality</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+        <div>
+            <h1>Industries We Serve</h1>
+            <p>Tailored coating solutions for Manufacturing, Marine, Power & Energy and Oil & Gas sectors.</p>
+        </div>
+    </header>
+
+    <!-- Industry Tabs -->
+    <section id="industry-tabs" class="value-props">
+        <h2 style="font-size: 1.5rem; color: var(--primary); text-align: center;">Select an Industry</h2>
+
+        <div class="grid">
+            <button class="btn" data-filter="all">All Industries</button>
+            <button class="btn" data-filter="manufacturing">Manufacturing & Fabrication</button>
+            <button class="btn" data-filter="marine">Marine & Offshore</button>
+            <button class="btn" data-filter="power-energy">Power & Energy</button>
+            <button class="btn" data-filter="oil-gas">Oil & Gas</button>
+        </div>
+
+        <!-- Active state indicator -->
+        <p id="filter-status-industries" style="margin-top: 1rem; font-weight: bold;"></p>
+    </section>
+
+    <!-- Manufacturing Section -->
+    <section class="services-preview industry-group" data-category="manufacturing">
+        <h2 style="font-size: 2rem;">Manufacturing & Fabrication</h2>
+
+        <div class="grid" style="text-align:left; margin-top:1.5rem;">
+            <p><strong>Applications:</strong></strong> Steel fabrication, structural steelwork, industrial equipment.</p>
+            <p><strong>Solutions:</strong></strong> HD zinc coatings for fabricated structures, epoxy systems for machinery protection, chemical-resistant linings for processing equipment.</p>
+        </div>
+
+    <!-- Marine Section -->
+    </section>
+
+    <section class="services-preview industry-group" data-category="marine">
+        <h2 style="font-size: 2rem;">Marine & Offshore</h2>
+
+        <details open class="card" data-category="marine"><summary><strong>Hull Protection Systems:</strong></summary>
+            <p>Multilayer antifouling and anti-corrosion systems for ships, barges and offshore vessels.</p>
+        </details>
+
+        <details open class="card" data-category="offshore"><summary><strong>Offshore Platforms & Rigs:</strong></summary>
+            <p>Specialized coatings for extreme marine environments including ballast tanks, deck structures and cargo holds.</p>
+        </details>
+
+    <!-- Power & Energy Section -->
+    <section class="services-preview industry-group" data-category="power-energy">
+        <h2 style="font-size: 2rem;">Power & Energy</h2>
+
+        <div class="grid" style="text-align:left; margin-top:1.5rem;">
+            <p><strong>Applications:</strong></strong> Power plants, thermal power stations, hydroelectric facilities.</p>
+            <p><strong>Solutions:</strong></strong> Structural steel protection for plant infrastructure, chemical-resistant coatings for piping systems, corrosion control for boiler and turbine components.</p>
+        </div>
+
+    <!-- Oil & Gas Section -->
+    <section class="services-preview industry-group" data-category="oil-gas">
+        <h2 style="font-size: 2rem;">Oil & Gas</h2>
+
+        <details open class="card" data-category="oil-gas"><summary><strong>Pipeline Coatings:</strong></summary>
+            <p>Internal and external pipeline protection for onshore and offshore applications.</p>
+        </details>
+
+        <details open class="card" data-category="refinery"><summary><strong>Refinery & Petrochemical Plants:</strong></summary>
+            <p>Chemical-resistant coatings for storage tanks, piping systems and structural steel in aggressive environments.</p>
+        </details>
+
+    <!-- Industry Details Modal -->
+    <div id="industry-modal" style="display:none; position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:999;"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

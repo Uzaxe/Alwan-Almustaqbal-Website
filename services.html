@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services | Alwan Almustaqbal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo" aria-label="Alwan Almustaqbal Home">
+            <img src="logo.png" alt="Alwan Almustaqbal logo">
+            <span>Alwan Almustaqbal</span>
+        </a>
+        <ul>
+            <li><a href="index.html" id="link-to-home">Home</a></li>
+            <li><a href="about.html" id="link-to-about">About</a></li>
+            <li><a href="quality.html" id="link-to-quality">Quality</a></li>
+            <li><a href="industries.html" id="link-to-industries">Industries</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+        <div>
+            <h1>Our Services</h1>
+            <p>Specialized coating solutions for Industrial, Marine and Protective applications.</p>
+        </div>
+    </header>
+
+    <!-- Service Filter -->
+    <section id="filter-container" class="value-props">
+        <div style="max-width: 800px; margin-left: auto; margin-right: auto;">
+            <h2 style="font-size: 1.5rem; color: var(--primary); text-align: center; margin-bottom: 3rem;">Filter by Category</h2>
+
+            <div class="grid">
+                <button class="btn" data-filter="all">All Services</button>
+                <button class="btn" data-filter="industrial">Industrial Coatings</button>
+                <button class="btn" data-filter="marine">Marine Coatings</button>
+                <button class="btn" data-filter="protective">Protective Solutions</button>
+            </div>
+
+            <!-- Active state indicator -->
+            <p id="filter-status" style="margin-top: 1rem; font-weight: bold;"></p>
+        </div>
+    </section>
+
+    <!-- Industrial Coatings Section -->
+    <section class="services-preview service-group" data-category="industrial">
+        <h2 style="font-size: 2rem;">Industrial Coatings</h2>
+
+        <details open class="card" data-category="industrial"><summary><strong>Special 99.9% HD Zinc Coatings</strong></summary>
+        <p>High-performance zinc-rich coatings providing exceptional corrosion protection for structural steel, tank and pipeline applications.</p>
+    </details>
+
+    <details open class="card" data-category="industrial"><summary><strong>Epoxy & Polyurethane Coatings</strong></summary>
+        <p>Durable chemical-resistant systems offering superior adhesion, abrasion resistance and UV stability for industrial environments.</p>
+    </details>
+
+    <details open class="card" data-category="industrial"><summary><strong>Zinc-Rich Primers</strong></summary>
+        <p>Sacrificial anodic protection coatings ideal as primers for steel structures requiring long-term corrosion resistance.</p>
+    </details>
+
+    <details open class="card" data-category="industrial"><summary><strong>Passivation (Chemical) Anti-Corrosive Coatings</strong></summary>
+        <p>Advanced chemical passivation systems that create protective oxide layers on steel surfaces for enhanced corrosion resistance.</p>
+    </details>
+
+    <details open class="card" data-category="industrial"><summary><strong>Structural Steel, Tank & Pipeline Internal/External Coatings</strong></summary>
+        <p>Comprehensive coating solutions for above-ground and below-ground applications including oil refineries, petrochemical plants.</p>
+    </details>
+
+    <details open class="card" data-category="industrial"><summary><strong>Chemical-Resistant Coatings</strong></summary>
+        <p>Specialized coatings designed to withstand aggressive chemical environments in industrial processing facilities.</p>
+    </details>
+    </section>
+
+    <!-- Marine Coatings Section -->
+    <section class="services-preview service-group" data-category="marine">
+        <h2 style="font-size: 2rem;">Marine Coatings</h2>
+
+        <details open class="card" data-category="marine"><summary><strong>Antifouling Coatings</strong></summary>
+            <p>Bio-cidal antifouling systems preventing marine growth on hulls, reducing drag and fuel consumption.</p>
+        </details>
+
+        <details open class="card" data-category="marine"><summary><strong>Hull Protection Systems</strong></summary>
+            <p>Multilayer coating systems designed to protect ship hulls from corrosion in harsh marine environments.</p>
+        </details>
+
+        <details open class="card" data-category="marine"><summary><strong>Ballast Tank Coatings</strong></summary>
+            <p>Corrosion-resistant coatings for ballast tanks preventing contamination and extending tank life.</p>
+        </details>
+
+        <details open class="card" data-category="marine"><summary><strong>Deck & Cargo Hold Coatings</strong></summary>
+            <p>Durable, slip-resistant deck coatings and cargo hold protection systems for commercial vessels.</p>
+        </details>
+    </section>
+
+    <!-- Protective Solutions Section -->
+    <section class="services-preview service-group" data-category="protective">
+        <h2 style="font-size: 2rem;">Protective Solutions</h2>
+
+        <details open class="card" data-category="protective"><summary><strong>Offshore Coatings</strong></summary>
+            <p>Specialized coatings for offshore platforms, rigs and subsea structures exposed to extreme marine conditions.</p>
+        </details>
+
+        <details open class="card" data-category="protective"><summary><strong>Corrosion Control Systems</strong></summary>
+            <p>Comprehensive corrosion management solutions including cathodic protection integration with coating systems.</p>
+        </details>
+    </section>
+
+    <!-- Service Details Modal -->
+    <div id="service-modal" style="display:none; position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:999;"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

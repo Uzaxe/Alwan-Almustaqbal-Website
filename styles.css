@@ -1,0 +1,195 @@
+/* Alwan Almustaqbal - Metal Coating Division */
+
+:root {
+    --primary: #c41a37; /* Red/Orange accent */
+    --secondary: #2d5a8e; /* Navy blue for marine/industrial feel */
+    --dark: #1a1a1a;
+    --light: #f5f5f5;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--dark);
+    background: var(--light);
+}
+
+/* Navigation */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.logo img {
+    height: 44px;
+    width: auto;
+    object-fit: contain;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    margin-top: -5px;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--dark);
+    font-weight: 500;
+    transition: .3s;
+}
+
+nav a:hover {
+    color: var(--primary);
+}
+
+/* Hero Section */
+header.hero {
+    height: 100vh;
+    background: linear-gradient(135deg, #2d5a8e 0%, #c41a37 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding: 0 1rem;
+    margin-top: 60px;
+}
+
+.hero h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.hero p {
+    font-size: clamp(1.1rem, 2vw, 1.3rem);
+    opacity: .95;
+    max-width: 700px;
+    margin: 0 auto 2rem;
+}
+
+/* CTA Buttons */
+.btn {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: white;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 4px;
+    transition: .3s;
+    margin: 0.5rem;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0,0,0,.2);
+}
+
+.btn.active {
+    background: var(--primary);
+    color: white;
+}
+
+/* Value Props Section */
+.value-props {
+    padding: 4rem 5%;
+    background: white;
+    text-align: center;
+}
+
+.value-props h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.grid div {
+    padding: 1.5rem;
+    background: var(--light);
+    border-radius: 8px;
+    transition: .3s;
+}
+
+.grid div:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 6px rgba(0,0,0,.1);
+}
+
+/* Services Section */
+.services-preview {
+    padding: 4rem 5%;
+    background: var(--light);
+    text-align: center;
+}
+
+.services-preview h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.service-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin-top: 3rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.card {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,.1);
+    transition: .3s;
+    text-align: left;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* Footer */
+footer {
+    background: var(--dark);
+    color: white;
+    padding: 2rem 5%;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    nav ul { display: none; }
+    .hero h1 { font-size: 2rem; }
+}
