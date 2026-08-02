@@ -68,108 +68,53 @@ if (industryFilterButtons.length && industryGroups.length) {
 // Smooth scroll for anchor links (fallback)
 document.documentElement.style.scrollBehavior = 'smooth';
 
-// Mobile navigation toggle: robust overlay menu with backdrop
+// Mobile navigation toggle: injects a toggle button when needed and handles open/close
 (function() {
     const nav = document.querySelector('nav');
     if (!nav) return;
 
-    // ensure there's at least one .nav-toggle in the nav
-    let toggles = Array.from(nav.querySelectorAll('.nav-toggle'));
-    if (!toggles.length) {
-        const btn = document.createElement('button');
-        btn.className = 'nav-toggle';
-        btn.setAttribute('aria-label', 'Toggle navigation');
-        btn.setAttribute('aria-expanded', 'false');
-        btn.innerHTML = '&#9776;';
+    // Create toggle if not present
+    let toggle = nav.querySelector('.nav-toggle');
+    if (!toggle) {
+        toggle = document.createElement('button');
+        toggle.className = 'nav-toggle';
+        toggle.setAttribute('aria-label', 'Toggle navigation');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.innerHTML = '&#9776;'; // hamburger
+        // insert before the nav UL or at end
         const ul = nav.querySelector('ul');
-        if (ul) nav.insertBefore(btn, ul);
-        else nav.appendChild(btn);
-        toggles = [btn];
+        if (ul) nav.insertBefore(toggle, ul);
+        else nav.appendChild(toggle);
     }
 
-    function addBackdrop() {
-        let backdrop = document.querySelector('.nav-backdrop');
-        if (!backdrop) {
-            backdrop = document.createElement('div');
-            backdrop.className = 'nav-backdrop';
-            document.body.appendChild(backdrop);
-            backdrop.addEventListener('click', closeMenu);
-        }
-        return backdrop;
-    }
-
-    function removeBackdrop() {
-        const existing = document.querySelector('.nav-backdrop');
-        if (existing) existing.remove();
-    }
-
-    function openMenu() {
-        nav.classList.add('open');
-        toggles.forEach(t => t.setAttribute('aria-expanded', 'true'));
-        addBackdrop();
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeMenu() {
+    function closeNav() {
         nav.classList.remove('open');
-        toggles.forEach(t => t.setAttribute('aria-expanded', 'false'));
-        removeBackdrop();
-        document.body.style.overflow = '';
+        toggle.setAttribute('aria-expanded', 'false');
     }
 
-    // Attach handlers to all toggles. Use event delegation removal by replacing nodes to avoid duplicate listeners.
-    toggles.forEach(t => {
-        const newT = t.cloneNode(true);
-        t.parentNode.replaceChild(newT, t);
-    });
-    toggles = Array.from(nav.querySelectorAll('.nav-toggle'));
-    toggles.forEach(t => t.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (nav.classList.contains('open')) closeMenu(); else openMenu();
-    }));
-
-    // Delegated click handler as a fallback (catches taps even if individual listeners fail)
-    document.addEventListener('click', (e) => {
-        const btn = e.target.closest && e.target.closest('.nav-toggle');
-        if (btn && nav.contains(btn)) {
-            e.preventDefault();
-            if (nav.classList.contains('open')) closeMenu(); else openMenu();
+    toggle.addEventListener('click', () => {
+        const isOpen = nav.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', String(isOpen));
+        // When menu opens, add body padding-top equal to nav's height so content is pushed down
+        if (isOpen) {
+            const h = nav.getBoundingClientRect().height;
+            document.body.style.paddingTop = h + 'px';
+        } else {
+            document.body.style.paddingTop = '';
         }
     });
 
-    // close on ESC
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && nav.classList.contains('open')) closeMenu();
+    // Close menu when clicking outside or when resizing to desktop
+    document.addEventListener('click', (e) => {
+        if (!nav.contains(e.target) && nav.classList.contains('open')) closeNav();
     });
 
-    // close on resize to desktop
     window.addEventListener('resize', () => {
-        if (window.innerWidth > 768 && nav.classList.contains('open')) closeMenu();
-    });
-
-    // Ensure nav links work while menu is open: close overlay then navigate
-    const navLinks = Array.from(nav.querySelectorAll('a'));
-    navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            const href = link.getAttribute('href');
-            if (!href) return;
-            // on-page anchors: intercept and smooth-scroll after closing menu
-            if (href.startsWith('#')) {
-                e.preventDefault();
-                closeMenu();
-                const target = document.querySelector(href);
-                if (target) setTimeout(() => target.scrollIntoView({ behavior: 'smooth' }), 60);
-                return;
-            }
-            // For normal links, close the menu and navigate programmatically (mobile-safe)
-            e.preventDefault();
-            closeMenu();
-            // respect target (e.g., _blank)
-            const targetAttr = link.getAttribute('target');
-            setTimeout(() => {
-                if (targetAttr === '_blank') window.open(href, '_blank');
-                else window.location.href = href;
-            }, 80);
-        });
+        if (window.innerWidth > 768 && nav.classList.contains('open')) closeNav();
+        // If window resized while open, update body padding to match new nav height
+        if (nav.classList.contains('open')) {
+            const h = nav.getBoundingClientRect().height;
+            document.body.style.paddingTop = h + 'px';
+        }
     });
 })();

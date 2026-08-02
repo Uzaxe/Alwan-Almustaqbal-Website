@@ -230,39 +230,22 @@ footer {
         color: var(--dark);
         font-size: 1.5rem;
         z-index: 200;
-        margin-left: auto;
     }
 
-    /* When nav has `.open`, show a full-width overlay menu with a backdrop */
+    /* When nav has `.open`, show a full-width stacked menu that becomes part of the nav height
+       (so it pushes page content down instead of overlaying it). */
     nav.open ul {
         display: flex;
         flex-direction: column;
-        position: fixed;
-        top: 64px;
-        left: 0;
-        right: 0;
-        max-height: calc(100vh - 64px);
-        overflow: auto;
+        position: static; /* allow nav height to expand */
         background: white;
         padding: 1rem 5%;
         gap: 1rem;
-        box-shadow: 0 8px 24px rgba(0,0,0,.12);
-        z-index: 201;
+        box-shadow: 0 8px 24px rgba(0,0,0,.06);
     }
 
     nav.open ul li { margin: 0; }
     nav.open a { padding: .75rem 0; display: block; }
-
-    /* backdrop sits under the menu to dim page content */
-    .nav-backdrop {
-        position: fixed;
-        top: 64px;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0,0,0,0.35);
-        z-index: 150;
-    }
 
     /* Improve touch targets and spacing */
     .btn { padding: .9rem 1.25rem; font-size: 1rem; }
