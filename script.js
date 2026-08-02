@@ -68,63 +68,73 @@ if (industryFilterButtons.length && industryGroups.length) {
 // Smooth scroll for anchor links (fallback)
 document.documentElement.style.scrollBehavior = 'smooth';
 
-// Mobile navigation toggle: injects a toggle button when needed and handles open/close
+// Mobile navigation toggle: robust overlay menu with backdrop
 (function() {
     const nav = document.querySelector('nav');
     if (!nav) return;
 
-    // Create toggle if not present
-    let toggle = nav.querySelector('.nav-toggle');
-    if (!toggle) {
-        toggle = document.createElement('button');
-        toggle.className = 'nav-toggle';
-        toggle.setAttribute('aria-label', 'Toggle navigation');
-        toggle.setAttribute('aria-expanded', 'false');
-        toggle.innerHTML = '&#9776;'; // hamburger
-        // insert before the nav UL or at end
+    // ensure there's at least one .nav-toggle in the nav
+    let toggles = Array.from(nav.querySelectorAll('.nav-toggle'));
+    if (!toggles.length) {
+        const btn = document.createElement('button');
+        btn.className = 'nav-toggle';
+        btn.setAttribute('aria-label', 'Toggle navigation');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.innerHTML = '&#9776;';
         const ul = nav.querySelector('ul');
-        if (ul) nav.insertBefore(toggle, ul);
-        else nav.appendChild(toggle);
+        if (ul) nav.insertBefore(btn, ul);
+        else nav.appendChild(btn);
+        toggles = [btn];
     }
 
-    function closeNav() {
-        nav.classList.remove('open');
-        toggle.setAttribute('aria-expanded', 'false');
-    }
-
-    toggle.addEventListener('click', () => {
-        const isOpen = nav.classList.toggle('open');
-        toggle.setAttribute('aria-expanded', String(isOpen));
-        // When menu opens, add body padding-top equal to nav's height so content is pushed down
-        if (isOpen) {
-            const h = nav.getBoundingClientRect().height;
-            document.body.style.paddingTop = h + 'px';
-        } else {
-            document.body.style.paddingTop = '';
+    function addBackdrop() {
+        let backdrop = document.querySelector('.nav-backdrop');
+        if (!backdrop) {
+            backdrop = document.createElement('div');
+            backdrop.className = 'nav-backdrop';
+            document.body.appendChild(backdrop);
+            backdrop.addEventListener('click', closeMenu);
         }
-               nav.classList.remove('open');
-               toggle.setAttribute('aria-expanded', 'false');
-               // remove backdrop if present
-               const existing = document.querySelector('.nav-backdrop');
-               if (existing) existing.remove();
-               // restore scroll
-               document.body.style.overflow = '';
+        return backdrop;
+    }
+
+    function removeBackdrop() {
+        const existing = document.querySelector('.nav-backdrop');
+        if (existing) existing.remove();
+    }
+
+    function openMenu() {
+        nav.classList.add('open');
+        toggles.forEach(t => t.setAttribute('aria-expanded', 'true'));
+        addBackdrop();
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+        nav.classList.remove('open');
+        toggles.forEach(t => t.setAttribute('aria-expanded', 'false'));
+        removeBackdrop();
+        document.body.style.overflow = '';
+    }
+
+    // Attach handlers to all toggles. Use event delegation removal by replacing nodes to avoid duplicate listeners.
+    toggles.forEach(t => {
+        const newT = t.cloneNode(true);
+        t.parentNode.replaceChild(newT, t);
+    });
+    toggles = Array.from(nav.querySelectorAll('.nav-toggle'));
+    toggles.forEach(t => t.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (nav.classList.contains('open')) closeMenu(); else openMenu();
+    }));
+
+    // close on ESC
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && nav.classList.contains('open')) closeMenu();
     });
 
+    // close on resize to desktop
     window.addEventListener('resize', () => {
-        if (window.innerWidth > 768 && nav.classList.contains('open')) closeNav();
-        // If window resized while open, update body padding to match new nav height
-        if (nav.classList.contains('open')) {
-            const h = nav.getBoundingClientRect().height;
-                  // add backdrop
-                  let backdrop = document.querySelector('.nav-backdrop');
-                  if (!backdrop) {
-                     backdrop = document.createElement('div');
-                     backdrop.className = 'nav-backdrop';
-                     document.body.appendChild(backdrop);
-                     backdrop.addEventListener('click', closeNav);
-                  }
-                  // prevent body scroll while menu open
-                  document.body.style.overflow = 'hidden';
+        if (window.innerWidth > 768 && nav.classList.contains('open')) closeMenu();
     });
-                  closeNav();
+})();
