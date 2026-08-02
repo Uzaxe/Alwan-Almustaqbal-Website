@@ -128,6 +128,15 @@ document.documentElement.style.scrollBehavior = 'smooth';
         if (nav.classList.contains('open')) closeMenu(); else openMenu();
     }));
 
+    // Delegated click handler as a fallback (catches taps even if individual listeners fail)
+    document.addEventListener('click', (e) => {
+        const btn = e.target.closest && e.target.closest('.nav-toggle');
+        if (btn && nav.contains(btn)) {
+            e.preventDefault();
+            if (nav.classList.contains('open')) closeMenu(); else openMenu();
+        }
+    });
+
     // close on ESC
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && nav.classList.contains('open')) closeMenu();
