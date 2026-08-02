@@ -95,6 +95,13 @@ document.documentElement.style.scrollBehavior = 'smooth';
     toggle.addEventListener('click', () => {
         const isOpen = nav.classList.toggle('open');
         toggle.setAttribute('aria-expanded', String(isOpen));
+        // When menu opens, add body padding-top equal to nav's height so content is pushed down
+        if (isOpen) {
+            const h = nav.getBoundingClientRect().height;
+            document.body.style.paddingTop = h + 'px';
+        } else {
+            document.body.style.paddingTop = '';
+        }
     });
 
     // Close menu when clicking outside or when resizing to desktop
@@ -104,5 +111,10 @@ document.documentElement.style.scrollBehavior = 'smooth';
 
     window.addEventListener('resize', () => {
         if (window.innerWidth > 768 && nav.classList.contains('open')) closeNav();
+        // If window resized while open, update body padding to match new nav height
+        if (nav.classList.contains('open')) {
+            const h = nav.getBoundingClientRect().height;
+            document.body.style.paddingTop = h + 'px';
+        }
     });
 })();

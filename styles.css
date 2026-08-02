@@ -232,18 +232,16 @@ footer {
         z-index: 200;
     }
 
-    /* When nav has `.open`, show a full-width stacked menu */
+    /* When nav has `.open`, show a full-width stacked menu that becomes part of the nav height
+       (so it pushes page content down instead of overlaying it). */
     nav.open ul {
         display: flex;
         flex-direction: column;
-        position: absolute;
-        top: 64px;
-        left: 0;
-        right: 0;
+        position: static; /* allow nav height to expand */
         background: white;
         padding: 1rem 5%;
         gap: 1rem;
-        box-shadow: 0 8px 24px rgba(0,0,0,.12);
+        box-shadow: 0 8px 24px rgba(0,0,0,.06);
     }
 
     nav.open ul li { margin: 0; }
