@@ -161,9 +161,15 @@ document.documentElement.style.scrollBehavior = 'smooth';
                 if (target) setTimeout(() => target.scrollIntoView({ behavior: 'smooth' }), 60);
                 return;
             }
-            // For normal links, just close the menu and allow the browser to navigate normally
+            // For normal links, close the menu and navigate programmatically (mobile-safe)
+            e.preventDefault();
             closeMenu();
-            // do not call preventDefault to avoid programmatic navigation issues on some mobile browsers
+            // respect target (e.g., _blank)
+            const targetAttr = link.getAttribute('target');
+            setTimeout(() => {
+                if (targetAttr === '_blank') window.open(href, '_blank');
+                else window.location.href = href;
+            }, 80);
         });
     });
 })();
